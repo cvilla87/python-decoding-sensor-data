@@ -3,6 +3,7 @@ from datetime import date, datetime
 # Runner script for all modules
 from load_data import load_sensor_data
 from house_info import HouseInfo
+from temperature_info import TemperatureData
 
 ##############################
 # Do not remove these two lines
@@ -10,6 +11,8 @@ from house_info import HouseInfo
 data = []
 print("Sensor Data App")
 ##############################
+test_area = 1
+test_date = datetime.strptime("5/9/20", "%m/%d/%y")
 
 # Module 1 code here:
 data = load_sensor_data()
@@ -17,14 +20,19 @@ print("Loaded records: {}".format(len(data)))
 
 # Module 2 code here:
 house_info = HouseInfo(data)
-test_area = 1
 recs = house_info.get_data_by_area("id", rec_area=test_area)
-print("\nHouse sensor records for area {} = {}".format(test_area, len(recs)))
-test_date = datetime.strptime("5/9/20", "%m/%d/%y")
+print(f"\nHouse sensor records for area {test_area} = {len(recs)}")
 recs = house_info.get_data_by_date("id", rec_date=test_date)
-print("\nHouse sensor records for date: {} = {}".format(test_date.strftime("%m/%d/%y"), len(recs)))
+print(f"\nHouse sensor records for date: {test_date.strftime('%m/%d/%y')} = {len(recs)}")
 
 # Module 3 code here:
+temperature_data = TemperatureData(data)
+recs = temperature_data.get_data_by_area(rec_area=test_area)
+print(f"\nHouse Temperature sensor records for area {test_area} = {len(recs)}")
+print(f"\tMaximum: {max(recs)}, Minimum: {min(recs)} temperatures")
+recs = temperature_data.get_data_by_date(rec_date=test_date)
+print(f"\nHouse Temperature sensor records for date: {test_date.strftime('%m/%d/%y')} = {len(recs)}")
+print(f"\tMaximum: {max(recs)}, Minimum: {min(recs)} temperatures")
 
 # Module 4 code here:
 
